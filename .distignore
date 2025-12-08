@@ -1,0 +1,30 @@
+# Exclude development files and directories
+src/
+node_modules/
+.git/
+.gitignore
+webpack.config.js
+package-lock.json
+package.json
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# Exclude build tools and config
+.distignore
+.wordpress-org/
+phpunit.xml
+composer.json
+composer.lock
+
+# Exclude temporary files
+*.tmp
+*.swp
+*~
+
+# IMPORTANT: Do NOT exclude these directories/files needed for the plugin:
+# inc/ - Contains essential PHP classes
+# build/ - Contains compiled assets
+# *.php - Main plugin file and PHP classes
+# README.md - Documentation

@@ -1,0 +1,49 @@
+// Global styles for Simple Logo Scroller
+// These styles apply to both frontend and editor
+
+// Editor enhancements
+.block-editor-block-list__block[data-type="sls/simple-logo-scroller"] {
+    // Ensure proper spacing in editor
+    .wp-block-sls-simple-logo-scroller {
+        margin: 1em 0;
+    }
+}
+
+// Block category icon styling
+.block-editor-inserter__panel-content .editor-block-list-item-simple-logo-scroller {
+    .editor-block-list-item-simple-logo-scroller__icon {
+        color: #007cba;
+    }
+}
+
+// Ensure consistent typography
+.wp-block-sls-simple-logo-scroller {
+    * {
+        box-sizing: border-box;
+    }
+}
+
+// Loading state
+.sls-scroller-container[data-loading="true"] {
+    opacity: 0.6;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid #007cba;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

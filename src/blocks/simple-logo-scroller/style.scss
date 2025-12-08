@@ -1,0 +1,441 @@
+// KJ Logo Scroller Styles
+// Shared between editor and frontend for consistency
+
+:root {
+    --sls-primary-color: #007cba;
+    --sls-text-color: #23282d;
+    --sls-border-color: #ddd;
+    --sls-hover-color: #005a87;
+    --sls-transition: all 0.3s ease;
+}
+
+// Main container
+.wp-block-kj-logo-scroller {
+    margin: 20px 0;
+    padding: 0 20px;
+    position: relative;
+    overflow: hidden;
+
+    // Scroller container
+    .sls-scroller-container {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    // Scroller track (holds all logos)
+    .sls-scroller-track {
+        display: flex;
+        align-items: center;
+        transition: transform 0.1s linear;
+        will-change: transform;
+    }
+
+    // Individual logo items
+    .sls-logo-item {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px; // Default padding, will be overridden by JavaScript
+        box-sizing: border-box;
+        position: relative;
+
+        // Logo image container
+        .sls-logo-image {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-sizing: border-box;
+            position: relative;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                transition: var(--sls-transition);
+                filter: grayscale(20%);
+
+                &:hover {
+                    filter: grayscale(0%);
+                }
+            }
+
+            // Links styling
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                text-decoration: none;
+                cursor: pointer;
+
+                &:focus {
+                    outline: 2px solid var(--sls-primary-color);
+                    outline-offset: 2px;
+                }
+
+                &:hover img {
+                    filter: grayscale(0%);
+                    transform: scale(1.05);
+                }
+            }
+        }
+
+        // Link indicator for editor
+        .sls-link-indicator {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(0, 124, 186, 0.9);
+            color: white;
+            font-size: 12px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            z-index: 5;
+        }
+    }
+}
+
+// Editor-specific styles
+.block-editor .wp-block-kj-logo-scroller {
+
+    // Placeholder when no logos selected
+    .sls-placeholder {
+        background: #f9f9f9;
+        border: 2px dashed var(--sls-border-color);
+        border-radius: 8px;
+        padding: 60px 20px;
+        text-align: center;
+
+        .components-button {
+            margin-bottom: 16px;
+        }
+
+        p {
+            color: #666;
+            font-style: italic;
+            margin: 0;
+            font-size: 14px;
+        }
+    }
+
+    // Editor-specific logo items
+    .sls-logo-item.sls-editor-item {
+        background: #fff;
+        border: 1px solid var(--sls-border-color);
+        border-radius: 4px;
+        margin: 0 5px;
+        min-width: 120px;
+
+        &:hover {
+            border-color: var(--sls-primary-color);
+            box-shadow: 0 2px 8px rgba(0, 124, 186, 0.15);
+        }
+
+        // Logo controls (remove button)
+        .sls-logo-controls {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            z-index: 10;
+
+            .sls-remove-logo {
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                min-width: 30px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    background: #fff;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+    .wp-block-kj-logo-scroller {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wp-block-kj-logo-scroller {
+        padding: 0 10px;
+
+        .sls-logo-item {
+            // Padding controlled by JavaScript based on gap settings
+
+            .sls-logo-image {
+                height: 60px;
+                // Inner padding controlled by JavaScript
+            }
+        }
+    }
+
+    // Editor responsive adjustments
+    .block-editor .wp-block-kj-logo-scroller {
+        .sls-logo-item.sls-editor-item {
+            min-width: 100px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .wp-block-kj-logo-scroller {
+        padding: 0 5px;
+
+        .sls-logo-item {
+            // Padding controlled by JavaScript based on gap settings
+
+            .sls-logo-image {
+                height: 50px;
+                // Inner padding controlled by JavaScript
+            }
+        }
+    }
+}
+
+// Alignment support
+.wp-block-kj-logo-scroller.alignwide {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+}
+
+.wp-block-kj-logo-scroller.alignfull {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: none;
+    width: 100vw;
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+    .block-editor .wp-block-kj-logo-scroller {
+        .sls-placeholder {
+            background: #2c2c2c;
+            border-color: #555;
+
+            p {
+                color: #ccc;
+            }
+        }
+
+        .sls-logo-item.sls-editor-item {
+            background: #2c2c2c;
+            border-color: #555;
+        }
+    }
+}
+
+// Pagination styles
+.wp-block-kj-logo-scroller {
+    .sls-scroller-wrapper {
+        position: relative;
+
+        &.has-pagination {
+            .sls-scroller-container {
+                margin-bottom: 30px;
+            }
+        }
+    }
+
+    .sls-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 0;
+
+        .sls-dot {
+            width: var(--sls-pagination-size, 12px);
+            height: var(--sls-pagination-size, 12px);
+            border-radius: var(--sls-pagination-radius, 50%);
+            border: none;
+            background: #ccc;
+            cursor: pointer;
+            transition: var(--sls-transition);
+            outline: none;
+            padding: 0;
+
+            &:hover {
+                background: #999;
+                transform: scale(1.1);
+            }
+
+            &:focus {
+                outline: 2px solid var(--sls-pagination-color, var(--sls-primary-color));
+                outline-offset: 2px;
+            }
+
+            &.active {
+                background: var(--sls-pagination-color, var(--sls-primary-color));
+                transform: scale(1.2);
+
+                &:hover {
+                    background: var(--sls-pagination-color, var(--sls-primary-color));
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
+
+// Editor pagination styles
+.block-editor .wp-block-kj-logo-scroller {
+    .sls-pagination {
+        .sls-dot {
+            pointer-events: none; // Disable clicks in editor
+            opacity: 0.7; // Visual indication it's disabled
+        }
+    }
+}
+
+// Responsive pagination
+@media (max-width: 768px) {
+    .wp-block-kj-logo-scroller {
+        .sls-pagination {
+            gap: 6px;
+
+            .sls-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    }
+}
+
+// Dark mode pagination
+@media (prefers-color-scheme: dark) {
+    .wp-block-kj-logo-scroller {
+        .sls-pagination {
+            .sls-dot {
+                background: #555;
+
+                &:hover {
+                    background: #777;
+                }
+
+                &.active {
+                    background: var(--sls-pagination-color, var(--sls-primary-color));
+                }
+            }
+        }
+    }
+}
+
+// Hover Effects
+.wp-block-kj-logo-scroller {
+    // Scale hover effect
+    .sls-logo-item.hover-scale {
+        .sls-logo-image img {
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    // Fade hover effect
+    .sls-logo-item.hover-fade {
+        .sls-logo-image img {
+            transition: opacity 0.3s ease;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+
+    // Brighten hover effect
+    .sls-logo-item.hover-brighten {
+        .sls-logo-image img {
+            transition: filter 0.3s ease;
+
+            &:hover {
+                filter: brightness(1.2);
+            }
+        }
+    }
+
+    // No hover effect
+    .sls-logo-item.hover-none {
+        .sls-logo-image img {
+            &:hover {
+                transform: none;
+                opacity: 1;
+            }
+        }
+    }
+
+    // Override existing hover effects when using custom hover effects
+    .sls-logo-item.hover-scale,
+    .sls-logo-item.hover-fade,
+    .sls-logo-item.hover-brighten,
+    .sls-logo-item.hover-none {
+        .sls-logo-image img {
+            filter: none; // Remove default grayscale filter
+
+            &:hover {
+                filter: none; // Ensure no conflicting filters
+            }
+        }
+
+        &.has-link .sls-logo-image a:hover img {
+            transform: none; // Remove default link hover transform
+            filter: none;
+        }
+    }
+
+    // Apply custom hover effects to linked logos
+    .sls-logo-item.hover-scale.has-link .sls-logo-image a:hover img {
+        transform: scale(1.1);
+    }
+
+    .sls-logo-item.hover-fade.has-link .sls-logo-image a:hover img {
+        opacity: 0.7;
+    }
+
+    .sls-logo-item.hover-brighten.has-link .sls-logo-image a:hover img {
+        filter: brightness(1.2);
+    }
+}
+
+// Print styles
+@media print {
+    .wp-block-kj-logo-scroller {
+        .sls-scroller-track {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            transform: none !important;
+        }
+
+        .sls-logo-item {
+            flex: 0 0 25% !important;
+            transform: none !important;
+            break-inside: avoid;
+        }
+
+        .sls-pagination {
+            display: none !important;
+        }
+    }
+}

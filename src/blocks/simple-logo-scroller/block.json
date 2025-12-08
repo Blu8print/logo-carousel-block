@@ -1,0 +1,80 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kj/logo-scroller",
+  "version": "1.0.1",
+  "title": "KJ Logo Scroller",
+  "category": "kj-logo-scroller",
+  "description": "Professional logo carousel with pagination, hover effects, and mobile swipe navigation.",
+  "keywords": [
+    "logo",
+    "scroller",
+    "kj",
+    "carousel",
+    "brands",
+    "pagination",
+    "swipe"
+  ],
+  "textdomain": "kj-logo-scroller",
+  "attributes": {
+    "logos": {
+      "type": "array",
+      "default": []
+    },
+    "autoScroll": {
+      "type": "boolean",
+      "default": true
+    },
+    "scrollSpeed": {
+      "type": "number",
+      "default": 30
+    },
+    "logosPerView": {
+      "type": "object",
+      "default": {
+        "desktop": 4,
+        "tablet": 3,
+        "mobile": 2
+      }
+    },
+    "logoHeight": {
+      "type": "number",
+      "default": 80
+    },
+    "hoverEffect": {
+      "type": "string",
+      "default": "scale"
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": false
+    },
+    "paginationColor": {
+      "type": "string",
+      "default": "#007cba"
+    },
+    "paginationSize": {
+      "type": "number",
+      "default": 12
+    },
+    "paginationRadius": {
+      "type": "number",
+      "default": 50
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full",
+      "center"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

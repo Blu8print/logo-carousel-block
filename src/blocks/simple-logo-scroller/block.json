@@ -1,21 +1,20 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "kj/logo-scroller",
-  "version": "1.0.2",
-  "title": "KJ Logo Scroller",
-  "category": "kj-logo-scroller",
-  "description": "Professional logo carousel with pagination, hover effects, and mobile swipe navigation.",
+  "name": "blu8print/logo-scroller",
+  "version": "1.1.0",
+  "title": "Logo Scroller",
+  "category": "logo-carousel-block",
+  "description": "A lightweight, dependency-free Gutenberg block for infinite logo carousels. No jQuery, no bloat — just smooth scrolling with full client control from the WordPress editor.",
   "keywords": [
     "logo",
     "scroller",
-    "kj",
     "carousel",
     "brands",
     "pagination",
     "swipe"
   ],
-  "textdomain": "kj-logo-scroller",
+  "textdomain": "logo-carousel-block",
   "attributes": {
     "logos": {
       "type": "array",

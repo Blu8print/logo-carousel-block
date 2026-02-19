@@ -37,7 +37,7 @@ trait SLS_Instance {
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'simple-logo-scroller' ), '1.0.0' );
+        _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'logo-carousel-block' ), '1.1.0' );
     }
 
     /**
@@ -46,6 +46,6 @@ trait SLS_Instance {
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'simple-logo-scroller' ), '1.0.0' );
+        _doing_it_wrong( __FUNCTION__, __( 'Something went wrong.', 'logo-carousel-block' ), '1.1.0' );
     }
 }

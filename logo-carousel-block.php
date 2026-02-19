@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name:       Logo Scroller Block
- * Plugin URI:        www.blu8print.com
+ * Plugin URI:        https://www.blu8print.com
  * Description:       A lightweight, dependency-free Gutenberg block for infinite logo carousels. No jQuery, no bloat — just smooth CSS animation with full client control from the WordPress editor.
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Tested up to:      6.7
  * Version:           1.1.0
  * Author:            Blueprint 8
- * Author URI:        www.blu8print.com
+ * Author URI:        https://www.blu8print.com
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       logo-carousel-block
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Logo_Carousel_Block' ) ) {
     final class Logo_Carousel_Block {
 
         // Version
-        const VERSION = '1.0.4';
+        const VERSION = '1.1.0';
 
         // Instance
         private static $instance = null;
@@ -68,7 +68,17 @@ if ( ! class_exists( 'Logo_Carousel_Block' ) ) {
          * @return void
          */
         public function includes() {
+            add_action( 'init', [ $this, 'load_textdomain' ] );
             require_once LCB_INC . 'init.php';
+        }
+
+        /**
+         * Load plugin text domain
+         *
+         * @return void
+         */
+        public function load_textdomain() {
+            load_plugin_textdomain( 'logo-carousel-block', false, dirname( plugin_basename( LCB_FILE ) ) . '/languages' );
         }
 
         /**

@@ -40,7 +40,7 @@ const LogoItem = ({ logo, index, logoHeight, onRemove, isEditor = false, hoverEf
                     loading="lazy"
                 />
                 {isEditor && logo.link && (
-                    <div className="sls-link-indicator" title={__('This logo has a link', 'kj-logo-scroller')}>
+                    <div className="sls-link-indicator" title={__('This logo has a link', 'logo-carousel-block')}>
                         🔗
                     </div>
                 )}
@@ -53,7 +53,7 @@ const LogoItem = ({ logo, index, logoHeight, onRemove, isEditor = false, hoverEf
                             size="small"
                             icon="no-alt"
                             isDestructive
-                            title={__('Remove Logo', 'kj-logo-scroller')}
+                            title={__('Remove Logo', 'logo-carousel-block')}
                         />
                     </div>
                 )}
@@ -67,7 +67,7 @@ const Edit = ({ attributes, setAttributes }) => {
     const [activeDevice, setActiveDevice] = useState('desktop');
 
     const blockProps = useBlockProps({
-        className: 'wp-block-kj-logo-scroller'
+        className: 'wp-block-logo-carousel-block'
     });
 
     const handleLogoSelect = (newLogos) => {
@@ -92,15 +92,15 @@ const Edit = ({ attributes, setAttributes }) => {
     };
 
     const deviceOptions = [
-        { key: 'desktop', label: __('Desktop', 'kj-logo-scroller'), icon: '🖥️' },
-        { key: 'tablet', label: __('Tablet', 'kj-logo-scroller'), icon: '📱' },
-        { key: 'mobile', label: __('Mobile', 'kj-logo-scroller'), icon: '📱' }
+        { key: 'desktop', label: __('Desktop', 'logo-carousel-block'), icon: '🖥️' },
+        { key: 'tablet', label: __('Tablet', 'logo-carousel-block'), icon: '📱' },
+        { key: 'mobile', label: __('Mobile', 'logo-carousel-block'), icon: '📱' }
     ];
 
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Logo Settings', 'kj-logo-scroller')} initialOpen={true}>
+                <PanelBody title={__('Logo Settings', 'logo-carousel-block')} initialOpen={true}>
                     <MediaUploadCheck>
                         <MediaUpload
                             onSelect={handleLogoSelect}
@@ -115,8 +115,8 @@ const Edit = ({ attributes, setAttributes }) => {
                                     style={{ marginBottom: '16px' }}
                                 >
                                     {logos.length === 0
-                                        ? __('Select Logos', 'kj-logo-scroller')
-                                        : __('Edit Logos', 'kj-logo-scroller')
+                                        ? __('Select Logos', 'logo-carousel-block')
+                                        : __('Edit Logos', 'logo-carousel-block')
                                     }
                                 </Button>
                             )}
@@ -124,7 +124,7 @@ const Edit = ({ attributes, setAttributes }) => {
                     </MediaUploadCheck>
 
                     <RangeControl
-                        label={__('Logo Height (px)', 'kj-logo-scroller')}
+                        label={__('Logo Height (px)', 'logo-carousel-block')}
                         value={logoHeight}
                         onChange={(value) => setAttributes({ logoHeight: value })}
                         min={40}
@@ -132,20 +132,20 @@ const Edit = ({ attributes, setAttributes }) => {
                     />
 
                     <SelectControl
-                        label={__('Hover Effect', 'kj-logo-scroller')}
+                        label={__('Hover Effect', 'logo-carousel-block')}
                         value={hoverEffect}
                         onChange={(value) => setAttributes({ hoverEffect: value })}
                         options={[
-                            { label: __('None', 'kj-logo-scroller'), value: 'none' },
-                            { label: __('Scale', 'kj-logo-scroller'), value: 'scale' },
-                            { label: __('Fade', 'kj-logo-scroller'), value: 'fade' },
-                            { label: __('Brighten', 'kj-logo-scroller'), value: 'brighten' }
+                            { label: __('None', 'logo-carousel-block'), value: 'none' },
+                            { label: __('Scale', 'logo-carousel-block'), value: 'scale' },
+                            { label: __('Fade', 'logo-carousel-block'), value: 'fade' },
+                            { label: __('Brighten', 'logo-carousel-block'), value: 'brighten' }
                         ]}
-                        help={__('Choose hover animation for logos', 'kj-logo-scroller')}
+                        help={__('Choose hover animation for logos', 'logo-carousel-block')}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Responsive Settings', 'kj-logo-scroller')} initialOpen={false}>
+                <PanelBody title={__('Responsive Settings', 'logo-carousel-block')} initialOpen={false}>
                     <div style={{ display: 'flex', marginBottom: '16px' }}>
                         {deviceOptions.map(device => (
                             <Button
@@ -160,7 +160,7 @@ const Edit = ({ attributes, setAttributes }) => {
                     </div>
 
                     <RangeControl
-                        label={__(`Logos per View (${activeDevice})`, 'kj-logo-scroller')}
+                        label={__(`Logos per View (${activeDevice})`, 'logo-carousel-block')}
                         value={logosPerView[activeDevice]}
                         onChange={(value) => setAttributes({
                             logosPerView: { ...logosPerView, [activeDevice]: value }
@@ -170,16 +170,16 @@ const Edit = ({ attributes, setAttributes }) => {
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Scroll Settings', 'kj-logo-scroller')} initialOpen={false}>
+                <PanelBody title={__('Scroll Settings', 'logo-carousel-block')} initialOpen={false}>
                     <ToggleControl
-                        label={__('Auto Scroll', 'kj-logo-scroller')}
+                        label={__('Auto Scroll', 'logo-carousel-block')}
                         checked={autoScroll}
                         onChange={(value) => setAttributes({ autoScroll: value })}
                     />
 
                     {autoScroll && (
                         <RangeControl
-                            label={__('Scroll Speed', 'kj-logo-scroller')}
+                            label={__('Scroll Speed', 'logo-carousel-block')}
                             value={scrollSpeed}
                             onChange={(value) => setAttributes({ scrollSpeed: value })}
                             min={10}
@@ -188,17 +188,17 @@ const Edit = ({ attributes, setAttributes }) => {
                     )}
 
                     <ToggleControl
-                        label={__('Show Pagination Dots', 'kj-logo-scroller')}
+                        label={__('Show Pagination Dots', 'logo-carousel-block')}
                         checked={showPagination}
                         onChange={(value) => setAttributes({ showPagination: value })}
-                        help={__('Display navigation dots below the logos', 'kj-logo-scroller')}
+                        help={__('Display navigation dots below the logos', 'logo-carousel-block')}
                     />
 
                     {showPagination && (
                         <>
                             <div style={{ marginTop: '16px' }}>
                                 <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>
-                                    {__('Pagination Dot Color', 'kj-logo-scroller')}
+                                    {__('Pagination Dot Color', 'logo-carousel-block')}
                                 </label>
                                 <ColorPicker
                                     color={paginationColor}
@@ -207,30 +207,30 @@ const Edit = ({ attributes, setAttributes }) => {
                             </div>
 
                             <RangeControl
-                                label={__('Dot Size (px)', 'kj-logo-scroller')}
+                                label={__('Dot Size (px)', 'logo-carousel-block')}
                                 value={paginationSize}
                                 onChange={(value) => setAttributes({ paginationSize: value })}
                                 min={8}
                                 max={20}
-                                help={__('Size of pagination dots', 'kj-logo-scroller')}
+                                help={__('Size of pagination dots', 'logo-carousel-block')}
                             />
 
                             <RangeControl
-                                label={__('Dot Roundness (%)', 'kj-logo-scroller')}
+                                label={__('Dot Roundness (%)', 'logo-carousel-block')}
                                 value={paginationRadius}
                                 onChange={(value) => setAttributes({ paginationRadius: value })}
                                 min={0}
                                 max={50}
-                                help={__('0% = square, 50% = circle', 'kj-logo-scroller')}
+                                help={__('0% = square, 50% = circle', 'logo-carousel-block')}
                             />
                         </>
                     )}
                 </PanelBody>
 
                 {logos.length > 0 && (
-                    <PanelBody title={__('Logo Links', 'kj-logo-scroller')} initialOpen={false}>
+                    <PanelBody title={__('Logo Links', 'logo-carousel-block')} initialOpen={false}>
                         <p style={{ marginBottom: '16px', fontSize: '13px', color: '#666' }}>
-                            {__('Add URLs to make your logos clickable:', 'kj-logo-scroller')}
+                            {__('Add URLs to make your logos clickable:', 'logo-carousel-block')}
                         </p>
                         {logos.map((logo, index) => (
                             <div
@@ -265,10 +265,10 @@ const Edit = ({ attributes, setAttributes }) => {
                                     </strong>
                                 </div>
                                 <TextControl
-                                    label={__('Link URL', 'kj-logo-scroller')}
+                                    label={__('Link URL', 'logo-carousel-block')}
                                     value={logo.link || ''}
                                     onChange={(url) => handleLogoUpdate(index, 'link', url)}
-                                    placeholder={__('https://example.com', 'kj-logo-scroller')}
+                                    placeholder={__('https://example.com', 'logo-carousel-block')}
                                     type="url"
                                 />
                             </div>
@@ -296,12 +296,12 @@ const Edit = ({ attributes, setAttributes }) => {
                                         variant="primary"
                                         size="large"
                                     >
-                                        {__('Add Logos', 'kj-logo-scroller')}
+                                        {__('Add Logos', 'logo-carousel-block')}
                                     </Button>
                                 )}
                             />
                         </MediaUploadCheck>
-                        <p>{__('Select multiple images to create your simple logo scroller', 'kj-logo-scroller')}</p>
+                        <p>{__('Select multiple images to create your simple logo scroller', 'logo-carousel-block')}</p>
                     </div>
                 ) : (
                     <div className={`sls-scroller-wrapper ${showPagination ? 'has-pagination' : ''}`}>
@@ -327,7 +327,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                         key={index}
                                         className={`sls-dot ${index === 0 ? 'active' : ''}`}
                                         type="button"
-                                        aria-label={__(`Logo ${index + 1}`, 'kj-logo-scroller')}
+                                        aria-label={__(`Logo ${index + 1}`, 'logo-carousel-block')}
                                         style={{ pointerEvents: 'none' }} // Disable clicks in editor
                                     />
                                 ))}
@@ -346,7 +346,7 @@ const Save = ({ attributes }) => {
     if (!logos || logos.length === 0) return null;
 
     const blockProps = useBlockProps.save({
-        className: 'wp-block-kj-logo-scroller'
+        className: 'wp-block-logo-carousel-block'
     });
 
     return (
@@ -377,7 +377,7 @@ const Save = ({ attributes }) => {
                                             href={logo.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            aria-label={logo.alt ? `${logo.alt} - ${__('Opens in new tab', 'kj-logo-scroller')}` : __('Logo link - Opens in new tab', 'kj-logo-scroller')}
+                                            aria-label={logo.alt ? `${logo.alt} - ${__('Opens in new tab', 'logo-carousel-block')}` : __('Logo link - Opens in new tab', 'logo-carousel-block')}
                                         >
                                             <img
                                                 src={logo.url}
@@ -405,7 +405,7 @@ const Save = ({ attributes }) => {
                                 className={`sls-dot ${index === 0 ? 'active' : ''}`}
                                 type="button"
                                 data-page={index}
-                                aria-label={__(`Logo ${index + 1}`, 'kj-logo-scroller')}
+                                aria-label={__(`Logo ${index + 1}`, 'logo-carousel-block')}
                             />
                         ))}
                     </div>

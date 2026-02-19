@@ -10,7 +10,7 @@
 }
 
 // Main container
-.wp-block-kj-logo-scroller {
+.wp-block-blu8print-logo-scroller {
     margin: 20px 0;
     padding: 0 20px;
     position: relative;
@@ -105,7 +105,7 @@
 }
 
 // Editor-specific styles
-.block-editor .wp-block-kj-logo-scroller {
+.block-editor .wp-block-blu8print-logo-scroller {
 
     // Placeholder when no logos selected
     .sls-placeholder {
@@ -169,13 +169,13 @@
 
 // Responsive design
 @media (max-width: 1024px) {
-    .wp-block-kj-logo-scroller {
+    .wp-block-blu8print-logo-scroller {
         padding: 0 15px;
     }
 }
 
 @media (max-width: 768px) {
-    .wp-block-kj-logo-scroller {
+    .wp-block-blu8print-logo-scroller {
         padding: 0 10px;
 
         .sls-logo-item {
@@ -189,7 +189,7 @@
     }
 
     // Editor responsive adjustments
-    .block-editor .wp-block-kj-logo-scroller {
+    .block-editor .wp-block-blu8print-logo-scroller {
         .sls-logo-item.sls-editor-item {
             min-width: 100px;
         }
@@ -197,7 +197,7 @@
 }
 
 @media (max-width: 480px) {
-    .wp-block-kj-logo-scroller {
+    .wp-block-blu8print-logo-scroller {
         padding: 0 5px;
 
         .sls-logo-item {
@@ -212,13 +212,13 @@
 }
 
 // Alignment support
-.wp-block-kj-logo-scroller.alignwide {
+.wp-block-blu8print-logo-scroller.alignwide {
     margin-left: auto;
     margin-right: auto;
     max-width: 1200px;
 }
 
-.wp-block-kj-logo-scroller.alignfull {
+.wp-block-blu8print-logo-scroller.alignfull {
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     max-width: none;
@@ -227,7 +227,7 @@
 
 // Dark mode support
 @media (prefers-color-scheme: dark) {
-    .block-editor .wp-block-kj-logo-scroller {
+    .block-editor .wp-block-blu8print-logo-scroller {
         .sls-placeholder {
             background: #2c2c2c;
             border-color: #555;
@@ -245,7 +245,7 @@
 }
 
 // Pagination styles
-.wp-block-kj-logo-scroller {
+.wp-block-blu8print-logo-scroller {
     .sls-scroller-wrapper {
         position: relative;
 
@@ -300,7 +300,7 @@
 }
 
 // Editor pagination styles
-.block-editor .wp-block-kj-logo-scroller {
+.block-editor .wp-block-blu8print-logo-scroller {
     .sls-pagination {
         .sls-dot {
             pointer-events: none; // Disable clicks in editor
@@ -311,7 +311,7 @@
 
 // Responsive pagination
 @media (max-width: 768px) {
-    .wp-block-kj-logo-scroller {
+    .wp-block-blu8print-logo-scroller {
         .sls-pagination {
             gap: 6px;
 
@@ -325,7 +325,7 @@
 
 // Dark mode pagination
 @media (prefers-color-scheme: dark) {
-    .wp-block-kj-logo-scroller {
+    .wp-block-blu8print-logo-scroller {
         .sls-pagination {
             .sls-dot {
                 background: #555;
@@ -343,7 +343,7 @@
 }
 
 // Hover Effects
-.wp-block-kj-logo-scroller {
+.wp-block-blu8print-logo-scroller {
     // Scale hover effect
     .sls-logo-item.hover-scale {
         .sls-logo-image img {
@@ -422,7 +422,7 @@
 
 // Print styles
 @media print {
-    .wp-block-kj-logo-scroller {
+    .wp-block-blu8print-logo-scroller {
         .sls-scroller-track {
             display: flex !important;
             flex-wrap: wrap !important;

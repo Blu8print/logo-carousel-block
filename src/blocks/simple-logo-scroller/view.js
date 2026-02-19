@@ -37,6 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
         init() {
             if (this.totalLogos === 0) return;
 
+            // Guarantee overflow:hidden inline so the container can never be stretched
+            // by its children — prevents a ResizeObserver feedback loop regardless of
+            // whether the stylesheet has loaded yet.
+            this.container.style.overflow = 'hidden';
+
             // Set up responsive layout first
             this.setupResponsive();
 

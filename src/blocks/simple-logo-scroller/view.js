@@ -73,7 +73,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 if (wasAnimating) this.resumeAutoScroll();
-            }, 250)).observe(this.container);
+            // Observe the wrapper (parent of container) not the container itself.
+            // The container's offsetWidth is used inside setupResponsive(), so observing
+            // it would cause a feedback loop: wider items → wider container → observer fires
+            // → even wider items → infinite loop. The wrapper's width is controlled by the
+            // page layout and is never affected by what setupResponsive() does.
+            }, 250)).observe(this.wrapper || this.container.parentElement);
 
             // Pause on hover for auto-scroll
             this.container.addEventListener('mouseenter', () => {

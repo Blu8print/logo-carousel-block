@@ -37,10 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
         init() {
             if (this.totalLogos === 0) return;
 
-            // Guarantee overflow:hidden inline so the container can never be stretched
-            // by its children — prevents a ResizeObserver feedback loop regardless of
-            // whether the stylesheet has loaded yet.
+            // Apply layout constraints inline so they are always in effect before
+            // any ResizeObserver fires, regardless of whether the stylesheet has loaded.
+            // - overflow:hidden on the container clips the track (prevents it stretching the container)
+            // - min-width:0 on the block prevents CSS Grid / flexbox parents from inflating
+            //   the block element to fit the track, which would cause an infinite resize loop.
             this.container.style.overflow = 'hidden';
+            const blockEl = this.container.closest('.wp-block-blu8print-logo-scroller');
+            if (blockEl) blockEl.style.minWidth = '0';
 
             // Set up responsive layout first
             this.setupResponsive();

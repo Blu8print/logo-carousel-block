@@ -27,8 +27,8 @@
     .sls-scroller-track {
         display: flex;
         align-items: center;
-        transition: transform 0.1s linear;
         will-change: transform;
+        transition: none !important; // Override any theme-level "transition: all" that would animate the JS-controlled transform
     }
 
     // Individual logo items
@@ -40,6 +40,7 @@
         padding: 10px; // Default padding, will be overridden by JavaScript
         box-sizing: border-box;
         position: relative;
+        transition: none !important; // Prevent theme "transition: all" from animating JS-driven width/flex changes on resize
 
         // Logo image container
         .sls-logo-image {

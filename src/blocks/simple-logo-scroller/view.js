@@ -54,15 +54,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.startAutoScroll();
             }
 
-            // Handle resize
-            window.addEventListener('resize', this.debounce(() => {
+            // Handle resize (ResizeObserver catches container size changes from any source:
+            // window resize, CSS transitions, layout shifts, full-screen/boxed toggling, etc.)
+            new ResizeObserver(this.debounce(() => {
+                const wasAnimating = this.isAnimating;
+                if (wasAnimating) this.pauseAutoScroll();
+
                 this.setupResponsive();
                 this.calculateDimensions();
+
+                // Reset scroll position so layout changes don't leave a stale offset
+                this.currentTransform = 0;
+                this.track.style.transform = 'translateX(0px)';
+
                 if (this.showPagination) {
                     this.calculatePagination();
                     this.updatePaginationDots();
                 }
-            }, 250));
+
+                if (wasAnimating) this.resumeAutoScroll();
+            }, 250)).observe(this.container);
 
             // Pause on hover for auto-scroll
             this.container.addEventListener('mouseenter', () => {
@@ -78,16 +89,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         duplicateLogos() {
-            // Clone all logos for seamless scrolling
+            // Clone enough times so that at the widest breakpoint the visible
+            // area is always fully covered (avoids empty-space gap at end).
+            const maxLogosPerView = Math.max(this.logosDesktop, this.logosTablet, this.logosMobile);
+            const numClonesNeeded = Math.max(1, Math.ceil(maxLogosPerView / this.originalLogosCount));
+
             const originalLogos = Array.from(this.logos);
-            originalLogos.forEach(logo => {
-                const clone = logo.cloneNode(true);
-                this.track.appendChild(clone);
-            });
+            for (let i = 0; i < numClonesNeeded; i++) {
+                originalLogos.forEach(logo => {
+                    const clone = logo.cloneNode(true);
+                    this.track.appendChild(clone);
+                });
+            }
 
             // Update logos list to include clones
             this.logos = this.track.querySelectorAll('.sls-logo-item');
-            this.totalLogos = this.logos.length; // Update total count after duplication
+            this.totalLogos = this.logos.length;
         }
 
         setupResponsive() {
@@ -212,17 +229,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update current transform to the new position
             this.currentTransform = targetPosition;
 
-            // Apply the jump with smooth transition
-            this.track.style.transition = 'transform 0.3s ease';
+            // Apply the jump with smooth transition (use !important to override CSS rule)
+            this.track.style.setProperty('transition', 'transform 0.3s ease', 'important');
             this.track.style.transform = `translateX(${targetPosition}px)`;
 
             // Update pagination dots
             this.currentPage = logoIndex;
             this.updatePaginationDots();
 
-            // Resume auto-scroll after transition and remove transition
+            // Resume auto-scroll after transition and remove transition override
             setTimeout(() => {
-                this.track.style.transition = '';
+                this.track.style.removeProperty('transition');
                 if (wasAnimating && this.autoScroll) {
                     this.resumeAutoScroll();
                 }

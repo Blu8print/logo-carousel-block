@@ -1,6 +1,6 @@
 {
   "name": "logo-carousel-block",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A lightweight WordPress Gutenberg block for displaying logos in a smooth scrolling carousel with pagination, links, and mobile swipe support",
   "main": "build/index.js",
   "scripts": {

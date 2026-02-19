@@ -1,15 +1,16 @@
 <?php
 /**
- * Plugin Name:       Logo Carousel Block
- * Plugin URI:        https://whiterabbit.codes
- * Description:       A professional Gutenberg block for displaying logos in a smooth scrolling carousel with pagination, hover effects, and mobile swipe navigation.
+ * Plugin Name:       Logo Scroller Block
+ * Plugin URI:        www.blu8print.com
+ * Description:       A lightweight, dependency-free Gutenberg block for infinite logo carousels. No jQuery, no bloat — just smooth CSS animation with full client control from the WordPress editor.
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * Version:           1.0.1
- * Author:            The White Rabbit - Sebastiaan Castenmiller
- * Author URI:        https://whiterabbit.codes
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Tested up to:      6.7
+ * Version:           1.1.0
+ * Author:            Blueprint 8
+ * Author URI:        www.blu8print.com
+ * License:           GPL v2 or later
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       logo-carousel-block
  * Domain Path:       /languages
  */

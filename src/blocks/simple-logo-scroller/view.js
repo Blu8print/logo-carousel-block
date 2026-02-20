@@ -43,36 +43,50 @@ document.addEventListener('DOMContentLoaded', function() {
             // - min-width:0 on the block prevents CSS Grid / flexbox parents from inflating
             //   the block element to fit the track, which would cause an infinite resize loop.
             this.container.style.overflow = 'hidden';
+            this.container.style.maxWidth = '100%';
             const blockEl = this.container.closest('.wp-block-blu8print-logo-scroller');
-            if (blockEl) blockEl.style.minWidth = '0';
+            this.blockEl = blockEl || null;
+            if (blockEl) {
+                blockEl.style.minWidth = '0';
+                blockEl.style.maxWidth = '100%';
+                blockEl.style.overflow = 'hidden';
+            }
 
-            // Set up responsive layout first
-            this.setupResponsive();
+            // Constrain whichever ancestor is the actual flex/grid item.
+            // min-width: 0 on blockEl already covers the case where blockEl itself is
+            // the direct flex item. This loop handles the common case where an intermediate
+            // wrapper (.wp-block-column, .wp-block-group, etc.) is the actual flex item.
+            let flexItem = blockEl || this.container;
+            while (flexItem.parentElement && flexItem.parentElement !== document.body) {
+                const parentDisplay = getComputedStyle(flexItem.parentElement).display;
+                if (parentDisplay === 'flex' || parentDisplay === 'grid' ||
+                    parentDisplay === 'inline-flex' || parentDisplay === 'inline-grid') {
+                    flexItem.style.minWidth = '0';
+                    break;
+                }
+                flexItem = flexItem.parentElement;
+            }
 
-            // Always set up continuous scroll mode
+            if (this.wrapper) {
+                this.wrapper.style.overflow = 'hidden';
+                this.wrapper.style.maxWidth = '100%';
+            }
+
+            // Always set up continuous scroll mode (doesn't depend on layout width)
             this.duplicateLogos();
-            this.calculateDimensions();
 
-            // Set up pagination controls if enabled
-            if (this.showPagination) {
-                this.setupPagination();
-            }
-
-            // Start auto-scroll if enabled
-            if (this.autoScroll) {
-                this.startAutoScroll();
-            }
-
-            // Handle resize (ResizeObserver catches container size changes from any source:
-            // window resize, CSS transitions, layout shifts, full-screen/boxed toggling, etc.)
-            new ResizeObserver(this.debounce(() => {
+            const handleResize = this.debounce(() => {
                 const wasAnimating = this.isAnimating;
                 if (wasAnimating) this.pauseAutoScroll();
+
+                this.logos.forEach(logo => {
+                    logo.style.flex = '0 0 0px';
+                    logo.style.width = '0px';
+                });
 
                 this.setupResponsive();
                 this.calculateDimensions();
 
-                // Reset scroll position so layout changes don't leave a stale offset
                 this.currentTransform = 0;
                 this.track.style.transform = 'translateX(0px)';
 
@@ -82,12 +96,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 if (wasAnimating) this.resumeAutoScroll();
-            // Observe the wrapper (parent of container) not the container itself.
-            // The container's offsetWidth is used inside setupResponsive(), so observing
-            // it would cause a feedback loop: wider items → wider container → observer fires
-            // → even wider items → infinite loop. The wrapper's width is controlled by the
-            // page layout and is never affected by what setupResponsive() does.
-            }, 250)).observe(this.wrapper || this.container.parentElement);
+            }, 250);
+
+            window.addEventListener('resize', handleResize);
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    this.setupResponsive();
+                    this.calculateDimensions();
+
+                    if (this.showPagination) {
+                        this.setupPagination();
+                    }
+
+                    if (this.autoScroll) {
+                        this.startAutoScroll();
+                    }
+                });
+            });
 
             // Pause on hover for auto-scroll
             this.container.addEventListener('mouseenter', () => {
@@ -119,10 +145,23 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update logos list to include clones
             this.logos = this.track.querySelectorAll('.sls-logo-item');
             this.totalLogos = this.logos.length;
+
+            // Prevent natural image sizes from inflating the track before setupResponsive runs.
+            // The double rAF will overwrite these with the correct width.
+            this.logos.forEach(logo => {
+                logo.style.flex = '0 0 0px';
+                logo.style.width = '0px';
+                logo.style.overflow = 'hidden';
+            });
+
         }
 
         setupResponsive() {
-            const screenWidth = window.innerWidth;
+            const width = this.container.offsetWidth;
+
+            if (!width || width > 10000) return;
+
+            const screenWidth = width;
             let logosPerView;
 
             // Determine breakpoint and logos per view

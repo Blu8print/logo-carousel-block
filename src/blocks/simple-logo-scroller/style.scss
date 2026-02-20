@@ -249,6 +249,9 @@
 .wp-block-blu8print-logo-scroller {
     .sls-scroller-wrapper {
         position: relative;
+        overflow: hidden; // clips the track regardless of who the flex/grid item is
+        width: 100%; // fills the block element's content box via normal block layout
+        min-width: 0; // safety net if this element ever ends up as a flex/grid item
 
         &.has-pagination {
             .sls-scroller-container {
